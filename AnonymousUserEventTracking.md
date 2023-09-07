@@ -4,7 +4,7 @@
 
 The `AnonymousUserManager` class is responsible for managing anonymous user sessions and tracking events. 
 It includes methods for updating sessions, tracking events (i.e regular, update cart and purchase) and create a user if criterias are met.
-We call track methods of this class internally to make sure we have tracked the events even when user is NOT logged in and after certain criterias are met we create a user and logs them and sync events through Iterable API.
+We call track methods of this class internally to make sure we have tracked the events even when user is NOT logged in and after certain criterias are met we create a user and logs them automatically and sync events through Iterable API.
 
 ## Class Structure
 
