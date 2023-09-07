@@ -36,6 +36,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
     private var localStorage: LocalStorageProtocol
     private let dateProvider: DateProviderProtocol
     
+    // Tracks an anonymous event and store it locally
     public func trackAnonEvent(name: String, dataFields: [AnyHashable: Any]?) {
         var body = [AnyHashable: Any]()
         body.setValue(for: JsonKey.eventName, value: name)
@@ -47,6 +48,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         storeEventData(type: EventType.track, data: body)
     }
     
+    // Convert commerce items to dictionaries
     private func convertCommerceItemsToDictionary(_ items: [CommerceItem]) -> [[AnyHashable:Any]] {
         let dictionaries = items.map { item in
             return item.toDictionary()
@@ -54,6 +56,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return dictionaries
     }
     
+    // Convert to commerce items from dictionaries
     private func convertCommerceItems(from dictionaries: [[AnyHashable: Any]]) -> [CommerceItem] {
         return dictionaries.compactMap { dictionary in
             let item = CommerceItem(id: dictionary[JsonKey.CommerceItem.id] as? String ?? "", name: dictionary[JsonKey.CommerceItem.name] as? String ?? "", price: dictionary[JsonKey.CommerceItem.price] as? NSNumber ?? 0, quantity: dictionary[JsonKey.CommerceItem.quantity] as? UInt ?? 0)
@@ -68,6 +71,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         }
     }
     
+    // Tracks an anonymous purchase event and store it locally
     public func trackAnonPurchaseEvent(total: NSNumber, items: [CommerceItem], dataFields: [AnyHashable: Any]?) {
         var body = [AnyHashable: Any]()
         body.setValue(for: JsonKey.Body.createdAt, value: Int(dateProvider.currentDate.timeIntervalSince1970))
@@ -79,18 +83,21 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         storeEventData(type: EventType.trackPurchase, data: body)
     }
     
+    // Tracks an anonymous cart event and store it locally
     public func trackAnonUpdateCart(items: [CommerceItem]) {
         var body = [AnyHashable: Any]()
         body.setValue(for: JsonKey.Commerce.items, value: convertCommerceItemsToDictionary(items))
         storeEventData(type: EventType.cartUpdate, data: body)
     }
     
+    // Tracks an anonymous token registration event and store it locally
     public func trackAnonTokenRegistration(token: String) {
         var body = [AnyHashable: Any]()
         body.setValue(for: JsonKey.token, value: token)
         storeEventData(type: EventType.tokenRegistration, data: body)
     }
     
+    // Stores an anonymous sessions locally. Updates the last session time each time when new session is created
     public func updateAnonSession() {
         if var sessions = localStorage.anonymousSessions {
             sessions.itbl_anon_sessions.number_of_sessions += 1
@@ -117,6 +124,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return [:]
     }
     
+    // Creates a user after criterias met and login the user and then sync the data through track APIs
     public func createKnownUser() {
         let userId = IterableUtil.generateUUID()
         print("userID: \(userId)")
@@ -126,15 +134,18 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         })
     }
     
+    // Syncs unsynced data which might have failed to sync when calling syncEvents for the first time after criterias met
     public func syncNonSyncedEvents() {
         syncEvents()
     }
     
+    // Reset the locally saved data when user logs out to make sure no old data is left
     public func logout() {
         localStorage.anonymousSessions = nil
         localStorage.anonymousUserEvents = nil
     }
     
+    // Syncs locally saved data through track APIs
     private func syncEvents() {
         let events = localStorage.anonymousUserEvents
         var successfulSyncedData: [Int] = []
@@ -192,6 +203,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         }
     }
     
+    // Checks if criterias are being met.
     private func checkCriteriaCompletion() -> Bool {
         var isCriteriaMet = false
         let criteriaData = localStorage.criteriaData
@@ -211,6 +223,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return isCriteriaMet
     }
     
+    // Filter non-synced data
     private func filterEvents(excludingTimestamps excludedTimestamps: [Int]) -> [[AnyHashable: Any]]? {
         guard let events = localStorage.anonymousUserEvents else {
             return nil
@@ -227,6 +240,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return filteredEvents.isEmpty ? nil : filteredEvents
     }
     
+    // Filter events by type
     private func filterEvents(byType type: String) -> [[AnyHashable: Any]]? {
         guard let events = localStorage.anonymousUserEvents else {
             return nil
@@ -242,6 +256,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return filteredEvents.isEmpty ? nil : filteredEvents
     }
     
+    // Filter events by type and name
     private func filterEvents(byType type: String, andName name: String?) -> [[AnyHashable: Any]]? {
         guard let events = localStorage.anonymousUserEvents else {
             return nil
@@ -265,6 +280,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return filteredEvents.isEmpty ? nil : filteredEvents
     }
     
+    // Converts UTC Datetime from current time
     private func getUTCDateTime() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -275,6 +291,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         return dateFormatter.string(from: utcDate)
     }
     
+    // Gets the anonymous criteria
     public func getAnonCriteria() {
         // call API when it is available and save data in userdefaults, until then just save the data in userdefaults using static data
         let data: [Criteria] = [
@@ -290,6 +307,7 @@ public class AnonymousUserManager: AnonymousUserManagerProtocol {
         localStorage.criteriaData = data
     }
     
+    // Stores event data locally
     private func storeEventData(type: String, data: [AnyHashable: Any]) {
         let storedData = localStorage.anonymousUserEvents
         var eventsDataObjects: [[AnyHashable: Any]] = [[:]]

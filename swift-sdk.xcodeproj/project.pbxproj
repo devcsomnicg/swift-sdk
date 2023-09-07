@@ -162,6 +162,7 @@
 		55E02D39253F8D86009DB8BC /* WebViewProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E02D38253F8D86009DB8BC /* WebViewProtocolTests.swift */; };
 		55E6F462238E066400808BCE /* DeepLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6F45E238E066400808BCE /* DeepLinkTests.swift */; };
 		55E9BE3429F9F5E6000C9FF2 /* DependencyContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9BE3329F9F5E6000C9FF2 /* DependencyContainerProtocol.swift */; };
+		5692A92E2AA99E2C0066C524 /* AnonymousUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5692A92D2AA99E2C0066C524 /* AnonymousUserManager.swift */; };
 		5B49BB3E27CFB71500E6F00C /* PopupInboxSessionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49BB3D27CFB71500E6F00C /* PopupInboxSessionUITests.swift */; };
 		5B5AA711284F1A6D0093FED4 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5AA710284F1A6D0093FED4 /* MockNetworkSession.swift */; };
 		5B5AA712284F1A6D0093FED4 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5AA710284F1A6D0093FED4 /* MockNetworkSession.swift */; };
@@ -563,6 +564,7 @@
 		55E02D38253F8D86009DB8BC /* WebViewProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewProtocolTests.swift; sourceTree = "<group>"; };
 		55E6F45E238E066400808BCE /* DeepLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkTests.swift; sourceTree = "<group>"; };
 		55E9BE3329F9F5E6000C9FF2 /* DependencyContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainerProtocol.swift; sourceTree = "<group>"; };
+		5692A92D2AA99E2C0066C524 /* AnonymousUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousUserManager.swift; sourceTree = "<group>"; };
 		5B49BB3D27CFB71500E6F00C /* PopupInboxSessionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupInboxSessionUITests.swift; sourceTree = "<group>"; };
 		5B5AA710284F1A6D0093FED4 /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		5B6C3C1027CE871F00B9A753 /* NavInboxSessionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavInboxSessionUITests.swift; sourceTree = "<group>"; };
@@ -966,6 +968,7 @@
 				AC44C0EB22615F8100E0641D /* Resources */,
 				AC2263F920CF4B63009800EB /* Supporting Files */,
 				AC72A0C120CF4CB8004D7997 /* CommerceItem.swift */,
+				5692A92D2AA99E2C0066C524 /* AnonymousUserManager.swift */,
 				AC72A0BE20CF4CB8004D7997 /* Constants.swift */,
 				AC72A0BF20CF4CB8004D7997 /* IterableAction.swift */,
 				ACF560E720E55A6B000AAC23 /* IterableActionContext.swift */,
@@ -1995,6 +1998,7 @@
 				AC32E16821DD55B900BD4F83 /* OrderedDictionary.swift in Sources */,
 				ACF406232507BC72005FD775 /* NetworkMonitor.swift in Sources */,
 				AC1712892416AEF400F2BB0E /* WebViewProtocol.swift in Sources */,
+				5692A92E2AA99E2C0066C524 /* AnonymousUserManager.swift in Sources */,
 				AC3C10F9213F46A900A9B839 /* IterableLogging.swift in Sources */,
 				55DD207F26A0D83800773CC7 /* IterableAuthManagerProtocol.swift in Sources */,
 				ACE34AB72139D70B00691224 /* LocalStorageProtocol.swift in Sources */,
